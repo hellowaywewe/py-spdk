@@ -7,8 +7,8 @@ As we all know, SPDK is a high-performance kit written in c, It is hard for pyth
 
 The py-spdk is designed for all of the management-level applications. For example:
 
-* When 
 * When Cinder directly uses SPDK as its backend, the Cyborg should be able to call the py-spdk through adding the driver function to complete the life cycle management of SPDK as well as get something returned by the backend SPDK. According to the configuration file of the upper-level management application, the py-spdk will to be known whether the backend is installed with SPDK. If so, it will provide the related functions of initialization and startup for server. Once the server is successfully started, the py-spdk can obtain what it requires. 
+* In the virtualization scenario, when users want to get information about the VM virtio device easily, the py-spdk can accomplish the same operations for SPDK as mentioned above. Once the vhost server is successfully started, the py-spdk can report result to the management-level applications, and help SPDK to manage virtio storage controllers,etc.
 
 
 ## Proposed change
