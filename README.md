@@ -3,11 +3,11 @@
 
 As we all know, SPDK is a high-performance kit written in c, It is hard for python applications to communicate with SPDK directly. Developers should be able to provide a client for callers to use SPDK better. The py-spdk is such a python client designed for the upper-level management applications to get what they want about SPDK, and further to accelerate the backend. 
 
-### Use Case
+### Use case
 
 The py-spdk is designed for all of the management-level applications. For example:
 
-* 
+* When 
 * When Cinder directly uses SPDK as its backend, the Cyborg should be able to call the py-spdk through adding the driver function to complete the life cycle management of SPDK as well as get something returned by the backend SPDK. According to the configuration file of the upper-level management application, the py-spdk will to be known whether the backend is installed with SPDK. If so, it will provide the related functions of initialization and startup for server. Once the server is successfully started, the py-spdk can obtain what it requires. 
 
 
@@ -15,7 +15,7 @@ The py-spdk is designed for all of the management-level applications. For exampl
 
 In general, the goal is to develop the py-spdk that supports the management and the use of SPDK.
 
-### Design Workflow
+### Design workflow
 
 * Modify the rpc.py provided by SPDK, and use init() to encapsulate most of its original functions,  and then execute rpc.py when called by pyspdk.py.
 * When the upper management application needs to get something about SPDK, it will call pyspdk. py. And then the pyspdk.py can tell if the process of SPDK is alive in system. If not, it will initialize and start the server.
@@ -37,14 +37,25 @@ In general, the goal is to develop the py-spdk that supports the management and 
             def close_server(self, spdk_dir, server_name)
                 pass
 
-	
-
-### Something Returned
-#### Start nvmf_tgt
+### Result returned
+#### Start nvmf_tgt example
 
 ![py-spdk](https://github.com/hellowaywewe/py-spdk/get_bdevs.png
 
-#### Start vhost
+#### Start vhost example
 
 ![py-spdk](https://github.com/hellowaywewe/py-spdk/get_luns.png
+
+
+### REST API impact
+None
+
+### Security impact
+None
+
+### Other end user impact
+None
+
+### Performance impact
+None
 
