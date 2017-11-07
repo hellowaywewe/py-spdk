@@ -47,15 +47,3 @@ In general, the goal is to develop the py-spdk that supports the management and 
 ![py-spdk](https://github.com/hellowaywewe/py-spdk/blob/master/get_luns.png)
 
 
-### REST API impact
-None
-
-### Security impact
-None
-
-### Other end user impact
-None
-
-### Performance impact
-None
-
