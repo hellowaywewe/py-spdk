@@ -40,11 +40,11 @@ In general, the goal is to develop the py-spdk that supports the management and 
 ### Result returned
 #### Start nvmf_tgt example
 
-![py-spdk](https://github.com/hellowaywewe/py-spdk/get_bdevs.png
+![py-spdk](https://github.com/hellowaywewe/py-spdk/get_bdevs.png)
 
 #### Start vhost example
 
-![py-spdk](https://github.com/hellowaywewe/py-spdk/get_luns.png
+![py-spdk](https://github.com/hellowaywewe/py-spdk/get_luns.png)
 
 
 ### REST API impact
