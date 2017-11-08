@@ -7,7 +7,7 @@ As we all know, SPDK is a high-performance kit written in c. It is hard for mana
 
 The py-spdk is designed for all of the management-level applications to employ SPDK-based app better. For example:
 
-* As an acceleration framework, the OpenStack Cyborg should be able to find and report the ability of backend accelerators including hardware  (like FPGA) and software (like DPDK, SPDK) acceleration resources. Based on this reason, the py-spdk make the Cyborg interact with SPDK-based app (as: nvmf_tgt, vhost, etc.). According to the configuration file provided by the Cyborg, the py-spdk will to be informed whether the SPDK is installed. If so, then it will judge further whether the nvmf_tgt process is started. Suppose the nvmf_tgt server is not alive, it will execute the functions of initialization and startup for server. Once the server is successfully started, the py-spdk can obtain what it requires, and then do other operations. 
+* As an acceleration framework, the OpenStack Cyborg should be able to find and report the ability of backend accelerators including hardware  (like FPGA) and software (like DPDK, SPDK) acceleration resources. Based on this reason, the py-spdk can make the Cyborg interact with SPDK-based app (as: nvmf_tgt, vhost, etc.). According to the configuration file provided by the Cyborg, the py-spdk will to be informed whether the SPDK is installed. If so, then it will judge further whether the nvmf_tgt process is started. Suppose the nvmf_tgt server is not alive, it will execute the functions of initialization and startup for server. Once the server is successfully started, the py-spdk can obtain what it requires, and then do other operations. 
 
 ## Proposed change
 
