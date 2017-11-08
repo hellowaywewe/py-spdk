@@ -1,7 +1,7 @@
 # py-spdk
 ## Problem description
 
-As we all know, SPDK is a high-performance kit written in c. It is hard for management-level applications written in python to connect with SPDK-based app (as: nvmf_tgt, etc.) directly. For this reason, developers should be able to provide a client for callers to make convenient use of SPDK-based app. The py-spdk is such a python client that is designed for the upper-level management applications to communicate more fully and to get data returned by SPDK-based app. 
+As we all know, SPDK is a high-performance kit written in c. It is hard for management-level applications written in python to connect with SPDK-based app (as: nvmf_tgt, etc.) directly. For this reason, developers should be able to provide a client for callers to make convenient use of SPDK-based app. The py-spdk is such a python client that is designed for the upper-level management applications to communicate more fully and get data returned by SPDK-based app. 
 
 ## Use case
 
