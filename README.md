@@ -37,11 +37,11 @@ In general, the goal is to develop the py-spdk that supports the management and 
                 pass
 
 ### Returned result
-#### Start nvmf_tgt example
+#### Start nvmf_tgt server example
 
 ![py-spdk](https://github.com/hellowaywewe/py-spdk/blob/master/get_bdevs.png)
 
-#### Start vhost example
+#### Start vhost server example
 
 ![py-spdk](https://github.com/hellowaywewe/py-spdk/blob/master/get_luns.png)
 
