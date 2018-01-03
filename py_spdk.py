@@ -12,10 +12,11 @@ class pyspdk(object):
         self.pname = pname
 
     def start_server(self, spdk_dir, server_name):
-        if not self.is_alive():
+        if self.is_alive():
             self.init_hugepages(spdk_dir)
             server_dir = os.path.join(spdk_dir, 'app/')
             file_dir = self.search_file(server_dir, server_name)
+            print file_dir
             os.chdir(file_dir)
             p = subprocess.Popen(
                 'sudo ./%s' % server_name,
@@ -27,6 +28,7 @@ class pyspdk(object):
     def init_hugepages(self, spdk_dir):
         huge_dir = os.path.join(spdk_dir, 'scripts/')
         file_dir = self.search_file(huge_dir, 'setup.sh')
+        print file_dir
         os.chdir(file_dir)
         p = subprocess.Popen(
             'sudo ./setup.sh',
@@ -40,7 +42,6 @@ class pyspdk(object):
             for filename in filenames:
                 if filename == file_name:
                     return dirpath
-        return None
 
     def get_process_id(self, pname):
         for proc in psutil.process_iter():
