@@ -3,8 +3,6 @@
 import argparse
 import json
 import socket
-import glovar
-
 try:
     from shlex import quote
 except ImportError:
