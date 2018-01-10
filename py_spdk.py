@@ -71,12 +71,10 @@ class pyspdk(object):
         if sub_args is None:
             sub_args = []
         exec_cmd.extend(sub_args)
-        print exec_cmd
         p = subprocess.Popen(
             exec_cmd,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE
         )
         out, err = p.communicate()
-        print err
         return out
