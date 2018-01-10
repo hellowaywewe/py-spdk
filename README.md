@@ -1,4 +1,9 @@
 # py-spdk
+
+## Dependencies
+
+The py-spdk is currently in favour of SPDK v17.07 and DPDK v17.08.
+
 ## Problem description
 
 As we all know, SPDK is a high-performance kit written in c. It is hard for management-level applications written in python to connect with SPDK-based app (as: nvmf_tgt, etc.) directly. For this reason, developers should be able to provide a client for callers to make convenient use of SPDK-based app. The py-spdk is such a python client that is designed for the upper-level management applications to communicate more fully and get data returned by SPDK-based app. 
@@ -16,8 +21,7 @@ In general, the goal is to develop the py-spdk that supports the management and 
 ### Design workflow
 
 * Modify the rpc.py provided by SPDK, and use init() to encapsulate most of its original functions, and then execute rpc.py when it’s invoked by pyspdk.py.
-* When the upper management application needs to get something about SPDK, it will call pyspdk.py. And then the pyspdk.py can tell if the process of SPDK is alive in system. If not, it will initialize and start the server.
-* The pyspdk.py uses the rpc.py to communicate with the SPDK server application, as: nvmf_tgt, vhost, etc, and then to get something about SPDK, as: get_luns, get_interfaces, get_vhost_blk_controller, etc.
+* The pyspdk.py will communicate with the SPDK-app (such as: nvmf_tgt, vhost, iscsi_tgt, etc.) through the rpc.py. The pyspdk.py provides some fundamental functions including the judgment of process status, hugepages initialization and server connection.  
 
 		class pyspdk(object):
             def start_server(self, spdk_dir, server_name)
@@ -30,10 +34,70 @@ In general, the goal is to develop the py-spdk that supports the management and 
         
             def is_alive(self)
         
-            def exec_rpc(self, method, server='127.0.0.1', port=5260)
+            def exec_rpc(self, method, server='127.0.0.1', port=5260, sub_args=None)
         
             def close_server(self, spdk_dir, server_name)
                 pass
+
+* The py-spdk has been implemented two kinds of client to obtain information (such as: as: get_luns, get_interfaces, get_vhost_blk_controller, etc) from SPDK-app which are nvmf_client and vhost_client. The third SPDK-app (iscsi_client) will be added later.
+
+** The nvmf_client has exposed a set of functions to the upper management application (such as: OpenStack Cyborg). If required, they can call the nvmf_client to do some operations of nvmf_tgt.
+
+                 class NvmfTgt(object):
+
+             def get_rpc_methods(self)
+        
+             def get_bdevs(self)
+       
+             def delete_bdev(self, name)
+
+             def kill_instance(self, sig_name)
+
+             def construct_aio_bdev(self, filename, name, block_size)
+       
+             def construct_error_bdev(self, basename)
+        
+             def construct_nvme_bdev(self, name, trtype, traddr, adrfam=None, trsvcid=None,subnqn=None)
+        
+             def construct_null_bdev(self, name, total_size, block_size):
+        
+             def construct_malloc_bdev(self, total_size, block_size):
+
+             def delete_nvmf_subsystem(self, nqn):
+        
+             def construct_nvmf_subsystem(self, nqn, listen, hosts, serial_number, namespaces)
+
+             def get_nvmf_subsystems(self)
+
+** The vhost_client has exposed a set of functions to the upper management application (such as: OpenStack Cyborg). If required, they can call the vhost_client to do some operations of vhost.
+
+                 class VhostTgt(object):
+
+             def get_rpc_methods(self)
+	     
+	     def get_scsi_devices(self)
+	     
+	     def get_luns(self)
+	     
+	     def add_ip_address(self, ifc_index, ip_addr)
+	     
+	     def delete_ip_address(self, ifc_index, ip_addr)
+        
+             def get_bdevs(self)
+       
+             def delete_bdev(self, name)
+
+             def kill_instance(self, sig_name)
+
+             def construct_aio_bdev(self, filename, name, block_size)
+       
+             def construct_error_bdev(self, basename)
+        
+             def construct_nvme_bdev(self, name, trtype, traddr, adrfam=None, trsvcid=None,subnqn=None)
+        
+             def construct_null_bdev(self, name, total_size, block_size):
+        
+             def construct_malloc_bdev(self, total_size, block_size):
 
 ### Returned result
 #### Start nvmf_tgt server example
