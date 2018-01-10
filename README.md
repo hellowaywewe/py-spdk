@@ -22,7 +22,7 @@ In general, the goal is to develop the py-spdk that supports the management and 
 ### Design workflow
 
 * Modify the rpc.py provided by SPDK, and use init() to encapsulate most of its original functions, and then execute rpc.py when it’s invoked by pyspdk.py.
-* The pyspdk.py will communicate with the SPDK-app (such as: nvmf_tgt, vhost, iscsi_tgt, etc.) through the rpc.py. The pyspdk.py provides some fundamental functions including the judgment of process status, hugepages initialization and server connection.  
+* The pyspdk.py will communicate with the SPDK-based app (such as: nvmf_tgt, vhost, iscsi_tgt, etc.) through the rpc.py. The pyspdk.py provides some fundamental functions including the judgment of process status, hugepages initialization and server connection.  
 
 		class pyspdk(object):
             def start_server(self, spdk_dir, server_name)
@@ -40,7 +40,7 @@ In general, the goal is to develop the py-spdk that supports the management and 
             def close_server(self, spdk_dir, server_name)
                 pass
 
-* The py-spdk has been implemented two kinds of client to obtain information (such as: as: get_luns, get_interfaces, get_vhost_blk_controller, etc) from SPDK-app which are nvmf_client and vhost_client. The third SPDK-app (iscsi_client) will be added later.
+* The py-spdk has been implemented two kinds of client to obtain information (such as: as: get_luns, get_interfaces, get_vhost_blk_controller, etc) from SPDK-based app which are nvmf_client and vhost_client. The third SPDK-based app (iscsi_client) will be added later.
 
   1. The nvmf_client has exposed a set of functions to the upper management application (such as: OpenStack Cyborg). If required, they can call the nvmf_client to do some operations of nvmf_tgt.
 
