@@ -1,7 +1,6 @@
 import json
 
 from proto import spdk_pb2
-from py_spdk import pyspdk
 from util import pbjson
 
 
@@ -12,7 +11,7 @@ class VhostTgt(object):
         self.py = py
 
     def get_rpc_methods(self):
-        res = py.exec_rpc('get_rpc_methods', '127.0.0.1')
+        res = self.py.exec_rpc('get_rpc_methods', '127.0.0.1')
         json_obj = json.loads(res)
         proto_obj = spdk_pb2.RpcMethods().name
         for name_i in range(len(json_obj)):
@@ -43,14 +42,14 @@ class VhostTgt(object):
         sub_args = []
         sub_args.append(ifc_index)
         sub_args.append(ip_addr)
-        res = py.exec_rpc('add_ip_address', '127.0.0.1', sub_args=sub_args)
+        res = self.py.exec_rpc('add_ip_address', '127.0.0.1', sub_args=sub_args)
         print res
 
     def delete_ip_address(self, ifc_index, ip_addr):
         sub_args = []
         sub_args.append(ifc_index)
         sub_args.append(ip_addr)
-        res = py.exec_rpc('delete_ip_address', '127.0.0.1', sub_args=sub_args)
+        res = self.py.exec_rpc('delete_ip_address', '127.0.0.1', sub_args=sub_args)
         print res
 
     def get_bdevs(self):
@@ -63,13 +62,13 @@ class VhostTgt(object):
     def delete_bdev(self, name):
         sub_args = []
         sub_args.append(name)
-        res = py.exec_rpc('delete_bdev', '127.0.0.1', sub_args=sub_args)
+        res = self.py.exec_rpc('delete_bdev', '127.0.0.1', sub_args=sub_args)
         print res
 
     def kill_instance(self, sig_name):
         sub_args = []
         sub_args.append(sig_name)
-        res = py.exec_rpc('kill_instance', '127.0.0.1', sub_args=sub_args)
+        res = self.py.exec_rpc('kill_instance', '127.0.0.1', sub_args=sub_args)
         print res
 
     def construct_aio_bdev(self, filename, name, block_size):
@@ -77,13 +76,13 @@ class VhostTgt(object):
         sub_args.append(filename)
         sub_args.append(name)
         sub_args.append(str(block_size))
-        res = py.exec_rpc('construct_aio_bdev', '127.0.0.1', sub_args=sub_args)
+        res = self.py.exec_rpc('construct_aio_bdev', '127.0.0.1', sub_args=sub_args)
         print res
 
     def construct_error_bdev(self, basename):
         sub_args = []
         sub_args.append(basename)
-        res = py.exec_rpc(
+        res = self.py.exec_rpc(
             'construct_error_bdev',
             '127.0.0.1',
             sub_args=sub_args)
@@ -110,7 +109,7 @@ class VhostTgt(object):
         if subnqn is not None:
             sub_args.append("-n")
             sub_args.append(subnqn)
-        res = py.exec_rpc(
+        res = self.py.exec_rpc(
             'construct_nvme_bdev',
             '127.0.0.1',
             sub_args=sub_args)
@@ -121,7 +120,7 @@ class VhostTgt(object):
         sub_args.append(name)
         sub_args.append(str(total_size))
         sub_args.append(str(block_size))
-        res = py.exec_rpc(
+        res = self.py.exec_rpc(
             'construct_null_bdev',
             '127.0.0.1',
             sub_args=sub_args)
@@ -131,7 +130,7 @@ class VhostTgt(object):
         sub_args = []
         sub_args.append(str(total_size))
         sub_args.append(str(block_size))
-        res = py.exec_rpc(
+        res = self.py.exec_rpc(
             'construct_malloc_bdev',
             '10.0.2.15',
             sub_args=sub_args)
@@ -140,40 +139,16 @@ class VhostTgt(object):
     def delete_nvmf_subsystem(self, nqn):
         sub_args = []
         sub_args.append(nqn)
-        res = py.exec_rpc(
+        res = self.py.exec_rpc(
             'delete_nvmf_subsystem',
             '10.0.2.15',
             sub_args=sub_args)
         print res
 
     def get_proto_objs(self, method, server_ip, proto_objs, proto_obj):
-        res = py.exec_rpc(method, server_ip)
+        res = self.py.exec_rpc(method, server_ip)
         json_obj = json.loads(res)
         for list_i in range(len(json_obj)):
             vproto_obj = pbjson.dict2pb(proto_obj, json_obj[list_i])
             proto_objs.extend([vproto_obj])
         return proto_objs
-
-
-py = pyspdk('nvme')
-if py.is_alive():
-    vhost_tgt = VhostTgt(py)
-
-    my_obj = vhost_tgt.get_rpc_methods()
-    for index in range(len(my_obj)):
-        print my_obj[index]
-
-    my_bdevs = vhost_tgt.get_bdevs()
-    for index in range(len(my_bdevs)):
-        my_bdev = my_bdevs[index]
-        if(index == 0):
-            print my_bdev.supported_io_types.nvme_admin
-
-    my_interfaces = vhost_tgt.get_interfaces()
-    for index in range(len(my_interfaces)):
-        my_interface = my_interfaces[index]
-        print my_interface
-
-    dele = vhost_tgt.delete_bdev('Malloc2')
-else:
-    raise Exception('vhost_tt server is unalive.')

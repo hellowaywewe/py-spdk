@@ -1,97 +1,28 @@
-import glovar
 from py_spdk import pyspdk
+from vhost_client import VhostTgt
 
 
-print "=====================get_vhost_blk_controllers=============="
-def run_client():
-    py = pyspdk('nvme')
-    if py.is_alive():
-        val =  py.exec_rpc('get_vhost_blk_controllers', '127.0.0.1')
-        return val
+py = pyspdk('nvme')
+if py.is_alive():
+    vhost_tgt = VhostTgt(py)
 
-cal=run_client()
-print cal
+    my_obj = vhost_tgt.get_rpc_methods()
+    for index in range(len(my_obj)):
+        print my_obj[index]
 
-print "=====================get_vhost_blk_controllers=============="
+    my_bdevs = vhost_tgt.get_bdevs()
+    for index in range(len(my_bdevs)):
+        my_bdev = my_bdevs[index]
+        if(index == 0):
+            print my_bdev.supported_io_types.nvme_admin
 
-def run_client():
-    py = pyspdk('nvme')
-    if py.is_alive():
-        val =  py.exec_rpc('get_vhost_blk_controllers', '127.0.0.1')
-        return val
+    my_interfaces = vhost_tgt.get_interfaces()
+    for index in range(len(my_interfaces)):
+        my_interface = my_interfaces[index]
+        print my_interface
 
-cal=run_client()
-print cal
-
-print "=====================get_vhost_scsi_controllers============="
-
-
-def run_client():
-    py = pyspdk('nvme')
-    if py.is_alive():
-        val =  py.exec_rpc('get_vhost_scsi_controllers', '127.0.0.1')
-        return val
-
-cal=run_client()
-print cal
-
-print "======================get_scsi_devices======================"
-
-
-def run_client():
-    py = pyspdk('nvme')
-    if py.is_alive():
-        val =  py.exec_rpc('get_scsi_devices', '127.0.0.1')
-        return val
-
-cal=run_client()
-print cal
-
-print "=======================get_luns=============================="
-
-def run_client():
-    py = pyspdk('nvme')
-    if py.is_alive():
-        val =  py.exec_rpc('get_luns', '127.0.0.1')
-        return val
-
-cal=run_client()
-print cal
-
-print "====================get_interfaces=========================="
-
-def run_client():
-    py = pyspdk('nvme')
-    if py.is_alive():
-        val =  py.exec_rpc('get_interfaces', '127.0.0.1')
-        return val
-
-cal=run_client()
-print cal
-
-print "===================get_trace_flags=========================="
-
-def run_client():
-    py = pyspdk('nvme')
-    if py.is_alive():
-        val =  py.exec_rpc('get_trace_flags', '127.0.0.1')
-        return val
-
-cal=run_client()
-print cal
-
-print "====================get_bdevs========================="
-
-def run_client():
-    py = pyspdk('nvme')
-    if py.is_alive():
-        val =  py.exec_rpc('get_bdevs', '127.0.0.1')
-        return val
-
-cal=run_client()
-print cal
-
-
-
+    dele = vhost_tgt.delete_bdev('Malloc2')
+else:
+    raise Exception('vhost_tgt server is unalive.')
 
 
