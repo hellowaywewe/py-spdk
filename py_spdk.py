@@ -63,10 +63,20 @@ class pyspdk(object):
                 return True
         return False
 
-    def exec_rpc(self, method, server='127.0.0.1', port=5260):
+    def exec_rpc(self, method, server='127.0.0.1', port=5260, sub_args=None):
+        exec_cmd = ["./rpc.py", "-s", "-p"]
+        exec_cmd.insert(2, server)
+        exec_cmd.insert(4, str(port))
+        exec_cmd.insert(5, method)
+        if sub_args is None:
+            sub_args = []
+        exec_cmd.extend(sub_args)
+        print exec_cmd
         p = subprocess.Popen(
-            './rpc.py -s %s -p %s %s' % (server, port, method),
-            shell=True, stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE)
+            exec_cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        )
         out, err = p.communicate()
+        print err
         return out

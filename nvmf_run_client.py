@@ -1,4 +1,3 @@
-import glovar
 from py_spdk import pyspdk
 
 
