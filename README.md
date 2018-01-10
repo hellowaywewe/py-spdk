@@ -41,9 +41,9 @@ In general, the goal is to develop the py-spdk that supports the management and 
 
 * The py-spdk has been implemented two kinds of client to obtain information (such as: as: get_luns, get_interfaces, get_vhost_blk_controller, etc) from SPDK-app which are nvmf_client and vhost_client. The third SPDK-app (iscsi_client) will be added later.
 
-** The nvmf_client has exposed a set of functions to the upper management application (such as: OpenStack Cyborg). If required, they can call the nvmf_client to do some operations of nvmf_tgt.
+  ** The nvmf_client has exposed a set of functions to the upper management application (such as: OpenStack Cyborg). If required, they can call the nvmf_client to do some operations of nvmf_tgt.
 
-                 class NvmfTgt(object):
+         class NvmfTgt(object):
 
              def get_rpc_methods(self)
         
@@ -69,10 +69,10 @@ In general, the goal is to develop the py-spdk that supports the management and 
 
              def get_nvmf_subsystems(self)
 
-** The vhost_client has exposed a set of functions to the upper management application (such as: OpenStack Cyborg). If required, they can call the vhost_client to do some operations of vhost.
+  ** The vhost_client has exposed a set of functions to the upper management application (such as: OpenStack Cyborg). If required, they can call the vhost_client to do some operations of vhost.
 
-                 class VhostTgt(object):
-
+         class VhostTgt(object):
+	 
              def get_rpc_methods(self)
 	     
 	     def get_scsi_devices(self)
@@ -82,21 +82,21 @@ In general, the goal is to develop the py-spdk that supports the management and 
 	     def add_ip_address(self, ifc_index, ip_addr)
 	     
 	     def delete_ip_address(self, ifc_index, ip_addr)
-        
-             def get_bdevs(self)
-       
+	     
+	     def get_bdevs(self)
+	     
              def delete_bdev(self, name)
-
+	     
              def kill_instance(self, sig_name)
-
+	     
              def construct_aio_bdev(self, filename, name, block_size)
-       
+	     
              def construct_error_bdev(self, basename)
-        
+	     
              def construct_nvme_bdev(self, name, trtype, traddr, adrfam=None, trsvcid=None,subnqn=None)
-        
+	     
              def construct_null_bdev(self, name, total_size, block_size):
-        
+	     
              def construct_malloc_bdev(self, total_size, block_size):
 
 ### Returned result
