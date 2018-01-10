@@ -136,15 +136,6 @@ class VhostTgt(object):
             sub_args=sub_args)
         print res
 
-    def delete_nvmf_subsystem(self, nqn):
-        sub_args = []
-        sub_args.append(nqn)
-        res = self.py.exec_rpc(
-            'delete_nvmf_subsystem',
-            '10.0.2.15',
-            sub_args=sub_args)
-        print res
-
     def get_proto_objs(self, method, server_ip, proto_objs, proto_obj):
         res = self.py.exec_rpc(method, server_ip)
         json_obj = json.loads(res)
