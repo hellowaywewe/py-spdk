@@ -75,6 +75,8 @@ In general, the goal is to develop the py-spdk that supports the management and 
 	 
              def get_rpc_methods(self)
 	     
+	     def get_scsi_devices(self)
+	     
 	     def get_scsi_devices(self)
 	     
 	     def get_luns(self)
