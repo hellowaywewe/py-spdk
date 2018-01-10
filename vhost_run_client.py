@@ -2,7 +2,7 @@ from py_spdk import pyspdk
 from vhost_client import VhostTgt
 
 
-py = pyspdk('nvme')
+py = pyspdk('vhost')
 if py.is_alive():
     vhost_tgt = VhostTgt(py)
 

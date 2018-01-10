@@ -2,7 +2,7 @@ from nvmf_client import NvmfTgt
 from py_spdk import pyspdk
 
 
-py = pyspdk('nvme')
+py = pyspdk('nvmf_tgt')
 if py.is_alive():
     nvmf_tgt = NvmfTgt(py)
 

@@ -46,8 +46,8 @@ class pyspdk(object):
     def get_process_id(self, pname):
         for proc in psutil.process_iter():
             try:
-                pinfo = proc.as_dict(attrs=['pid', 'name'])
-                if re.search(self.pname, pinfo.get('name')):
+                pinfo = proc.as_dict(attrs=['pid', 'cmdline'])
+                if re.search(self.pname, str(pinfo.get('cmdline'))):
                     self.pid = pinfo.get('pid')
                     return self.pid
             except psutil.NoSuchProcess:
