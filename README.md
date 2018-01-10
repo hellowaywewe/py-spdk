@@ -40,7 +40,7 @@ In general, the goal is to develop the py-spdk that supports the management and 
             def close_server(self, spdk_dir, server_name)
                 pass
 
-* The py-spdk has been implemented two kinds of client to obtain information (such as: as: get_luns, get_interfaces, get_vhost_blk_controller, etc) from SPDK-based app which are nvmf_client and vhost_client. The third SPDK-based app (iscsi_client) will be added later.
+* The py-spdk has been implemented two kinds of client to obtain information (such as: get_luns, get_interfaces, get_vhost_blk_controller, etc) from SPDK-based app which are nvmf_client and vhost_client. The third SPDK-based app (iscsi_client) will be added later.
 
   1. The nvmf_client has exposed a set of functions to the upper management application (such as: OpenStack Cyborg). If required, they can call the nvmf_client to do some operations of nvmf_tgt.
 
