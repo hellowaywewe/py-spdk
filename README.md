@@ -2,8 +2,8 @@
 
 ## Dependencies
 
-The py-spdk is currently in favour of SPDK v17.07 and DPDK v17.08.
-The py-spdk uses Protobuf v3.2.0 to write spdk.proto description of the data structure you wish to store which implements automatic encoding and parsing of the protobuf data with an effecient binary format.
+* The py-spdk is currently in favour of SPDK v17.07 and DPDK v17.08.
+* The py-spdk uses Protobuf v3.2.0 to write spdk.proto description of the data structure you wish to store which implements automatic encoding and parsing of the protobuf data with an effecient binary format.
 
 ## Problem description
 
