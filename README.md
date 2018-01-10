@@ -41,7 +41,7 @@ In general, the goal is to develop the py-spdk that supports the management and 
 
 * The py-spdk has been implemented two kinds of client to obtain information (such as: as: get_luns, get_interfaces, get_vhost_blk_controller, etc) from SPDK-app which are nvmf_client and vhost_client. The third SPDK-app (iscsi_client) will be added later.
 
-  ** The nvmf_client has exposed a set of functions to the upper management application (such as: OpenStack Cyborg). If required, they can call the nvmf_client to do some operations of nvmf_tgt.
+  1. The nvmf_client has exposed a set of functions to the upper management application (such as: OpenStack Cyborg). If required, they can call the nvmf_client to do some operations of nvmf_tgt.
 
          class NvmfTgt(object):
 
@@ -69,7 +69,7 @@ In general, the goal is to develop the py-spdk that supports the management and 
 
              def get_nvmf_subsystems(self)
 
-  ** The vhost_client has exposed a set of functions to the upper management application (such as: OpenStack Cyborg). If required, they can call the vhost_client to do some operations of vhost.
+  2. The vhost_client has exposed a set of functions to the upper management application (such as: OpenStack Cyborg). If required, they can call the vhost_client to do some operations of vhost.
 
          class VhostTgt(object):
 	 
