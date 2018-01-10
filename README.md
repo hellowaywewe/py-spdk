@@ -101,11 +101,11 @@ In general, the goal is to develop the py-spdk that supports the management and 
              def construct_malloc_bdev(self, total_size, block_size):
 
 ### Returned result
-#### Start nvmf_tgt server example
+#### Start nvmf_tgt server example: get_bdevs()
 
 ![py-spdk](https://github.com/hellowaywewe/py-spdk/blob/master/get_bdevs.png)
 
-#### Start vhost server example
+#### Start vhost server example: get_luns()
 
 ![py-spdk](https://github.com/hellowaywewe/py-spdk/blob/master/get_luns.png)
 
