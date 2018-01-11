@@ -11,20 +11,6 @@ class pyspdk(object):
         self.pid = None
         self.pname = pname
 
-    def start_server(self, spdk_dir, server_name):
-        if self.is_alive():
-            self.init_hugepages(spdk_dir)
-            server_dir = os.path.join(spdk_dir, 'app/')
-            file_dir = self.search_file(server_dir, server_name)
-            print file_dir
-            os.chdir(file_dir)
-            p = subprocess.Popen(
-                'sudo ./%s' % server_name,
-                shell=True, stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE)
-            out, err = p.communicate()
-            return out
-
     def init_hugepages(self, spdk_dir):
         huge_dir = os.path.join(spdk_dir, 'scripts/')
         file_dir = self.search_file(huge_dir, 'setup.sh')

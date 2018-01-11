@@ -31,8 +31,10 @@
 import json
 from google.protobuf.descriptor import FieldDescriptor as FD
 
+
 class ConvertException(Exception):
     pass
+
 
 def dict2pb(cls, adict, strict=False):
     """
@@ -45,9 +47,10 @@ def dict2pb(cls, adict, strict=False):
             continue
         if not field.has_default_value:
             continue
-        if not field.name in adict:
-            raise ConvertException('Field "%s" missing from descriptor dictionary.'
-                                   % field.name)
+        if field.name not in adict:
+            raise ConvertException(
+                'Field "%s" missing from descriptor dictionary.' %
+                field.name)
     field_names = set([field.name for field in obj.DESCRIPTOR.fields])
     if strict:
         for key in adict.keys():
@@ -56,7 +59,7 @@ def dict2pb(cls, adict, strict=False):
                     'Key "%s" can not be mapped to field in %s class.'
                     % (key, type(obj)))
     for field in obj.DESCRIPTOR.fields:
-        if not field.name in adict:
+        if field.name not in adict:
             continue
         msg_type = field.message_type
         if field.label == FD.LABEL_REPEATED:
@@ -114,4 +117,3 @@ def pb2json(obj):
     Takes a ProtoBuf Message obj and convertes it to a json string.
     """
     return json.dumps(pb2dict(obj), sort_keys=True, indent=4)
-
