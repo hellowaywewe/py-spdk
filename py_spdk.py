@@ -13,7 +13,7 @@ class pyspdk(object):
 
     def init_hugepages(self, spdk_dir):
         huge_dir = os.path.join(spdk_dir, 'scripts/')
-        file_dir = self.search_file(huge_dir, 'setup.sh')
+        file_dir = self._search_file(huge_dir, 'setup.sh')
         print file_dir
         os.chdir(file_dir)
         p = subprocess.Popen(
@@ -23,13 +23,13 @@ class pyspdk(object):
         out, err = p.communicate()
         return out
 
-    def search_file(self, spdk_dir, file_name):
+    def _search_file(self, spdk_dir, file_name):
         for dirpath, dirnames, filenames in os.walk(spdk_dir):
             for filename in filenames:
                 if filename == file_name:
                     return dirpath
 
-    def get_process_id(self, pname):
+    def _get_process_id(self, pname):
         for proc in psutil.process_iter():
             try:
                 pinfo = proc.as_dict(attrs=['pid', 'cmdline'])
@@ -42,7 +42,7 @@ class pyspdk(object):
         return self.pid
 
     def is_alive(self):
-        self.pid = self.get_process_id(self.pname)
+        self.pid = self._get_process_id(self.pname)
         if self.pid:
             p = psutil.Process(self.pid)
             if p.is_running():

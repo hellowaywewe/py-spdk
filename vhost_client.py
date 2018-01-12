@@ -21,20 +21,20 @@ class VhostTgt(object):
     def get_scsi_devices(self):
         scsi_devices = spdk_pb2.ScsiDevices().scsiDevice
         scsi_device = spdk_pb2.ScsiDevice
-        scsi_devices = self.get_proto_objs(
+        scsi_devices = self._get_proto_objs(
             'get_scsi_devices', '127.0.0.1', scsi_devices, scsi_device)
         return scsi_devices
 
     def get_luns(self):
         luns = spdk_pb2.Luns().lun
         lun = spdk_pb2.Lun
-        luns = self.get_proto_objs('get_luns', '127.0.0.1', luns, lun)
+        luns = self._get_proto_objs('get_luns', '127.0.0.1', luns, lun)
         return luns
 
     def get_interfaces(self):
         interfaces = spdk_pb2.Interfaces().interface
         interface = spdk_pb2.Interface
-        interfaces = self.get_proto_objs(
+        interfaces = self._get_proto_objs(
             'get_interfaces', '127.0.0.1', interfaces, interface)
         return interfaces
 
@@ -55,7 +55,7 @@ class VhostTgt(object):
     def get_bdevs(self):
         block_devices = spdk_pb2.BlockDevices().blockDevice
         block_device = spdk_pb2.BlockDevice
-        block_devices = self.get_proto_objs(
+        block_devices = self._get_proto_objs(
             'get_bdevs', '127.0.0.1', block_devices, block_device)
         return block_devices
 
@@ -136,7 +136,7 @@ class VhostTgt(object):
             sub_args=sub_args)
         print res
 
-    def get_proto_objs(self, method, server_ip, proto_objs, proto_obj):
+    def _get_proto_objs(self, method, server_ip, proto_objs, proto_obj):
         res = self.py.exec_rpc(method, server_ip)
         json_obj = json.loads(res)
         for list_i in range(len(json_obj)):

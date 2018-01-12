@@ -20,7 +20,7 @@ class NvmfTgt(object):
     def get_bdevs(self):
         block_devices = spdk_pb2.BlockDevices().blockDevice
         block_device = spdk_pb2.BlockDevice
-        block_devices = self.get_proto_objs(
+        block_devices = self._get_proto_objs(
             'get_bdevs', '10.0.2.15', block_devices, block_device)
         return block_devices
 
@@ -132,11 +132,11 @@ class NvmfTgt(object):
     def get_nvmf_subsystems(self):
         subsystems = spdk_pb2.NVMFSubsystems().subsystem
         subsystem = spdk_pb2.NVMFSubsystem
-        subsystems = self.get_proto_objs(
+        subsystems = self._get_proto_objs(
             'get_nvmf_subsystems', '10.0.2.15', subsystems, subsystem)
         return subsystems
 
-    def get_proto_objs(self, method, server_ip, proto_objs, proto_obj):
+    def _get_proto_objs(self, method, server_ip, proto_objs, proto_obj):
         res = self.py.exec_rpc(method, server_ip)
         json_obj = json.loads(res)
         for list_i in range(len(json_obj)):
